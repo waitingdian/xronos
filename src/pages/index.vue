@@ -3,22 +3,23 @@
     <div class="banner">
       <div class="img-wrap">
         <img :src="bannerUrl" alt="">
-      </div>
-
-      <div class="login-section">
-        <p class="title">登 录</p>
-        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" width="350px">
-          <el-form-item label="用户名" prop="userName" required>
-            <el-input v-model.number="ruleForm.userName"></el-input>
-          </el-form-item>
-          <el-form-item label="密码" prop="password" required>
-            <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
-          </el-form-item>
-        </el-form>
-        <div class="footer">
-          <el-button type="primary" @click="login('ruleForm')">提交</el-button>
+        <div class="login-section">
+          <p class="title">登 录</p>
+          <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" width="350px">
+            <el-form-item label="用户名" prop="userName" required>
+              <el-input v-model.number="ruleForm.userName"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" prop="password" required>
+              <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+            </el-form-item>
+          </el-form>
+          <div class="footer">
+            <el-button type="primary" @click="login('ruleForm')">提交</el-button>
+          </div>
         </div>
       </div>
+
+
     </div>
     <div class="product">
       <el-row>
@@ -238,12 +239,12 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .index-page .banner{
-    position: relative;
   }
   .index-page .banner > .img-wrap {
     display: block;
     margin: 0 auto;
     width: 1000px;
+    position: relative;
   }
   .index-page .banner img{
     display: block;
