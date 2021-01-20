@@ -19,7 +19,11 @@
       <el-table-column prop="id" label="顾客NO" width="110"></el-table-column>
       <el-table-column prop="storeName" min-width="130" label="店铺名" show-overflow-tooltip></el-table-column>
 <!--      <el-table-column prop="" width="120" label="企业名"></el-table-column>-->
-      <el-table-column prop="" width="120" label="店铺分类"></el-table-column>
+      <el-table-column prop="" width="120" label="店铺分类">
+        <template>
+          /
+        </template>
+      </el-table-column>
       <el-table-column prop="sales" width="100" label="销售数量"></el-table-column>
       <el-table-column prop="score" width="80" label="评分"></el-table-column>
       <el-table-column prop="cityName" width="80" label="市"></el-table-column>
