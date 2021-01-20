@@ -1,5 +1,4 @@
 // import Vue from 'vue';
-
 import {
   Button,
   Select,
@@ -16,6 +15,7 @@ import {
   TableColumn,
   MenuItemGroup,
   Pagination,
+  Loading,
 } from 'element-ui';
 
 const loadElement = (vue) => {
@@ -35,6 +35,7 @@ const loadElement = (vue) => {
     TableColumn,
     MenuItemGroup,
     Pagination,
+    Loading,
   ];
   components.map(it => vue.use(it));
 };

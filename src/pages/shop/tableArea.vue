@@ -16,7 +16,7 @@
           <div v-else class="empty-tip">暂无数据</div>
         </template>
       </el-table-column>
-      <el-table-column prop="id" label="顾客NO" sortable width="110"></el-table-column>
+      <el-table-column prop="id" label="顾客NO" width="110"></el-table-column>
       <el-table-column prop="storeName" min-width="130" label="店铺名" show-overflow-tooltip></el-table-column>
 <!--      <el-table-column prop="" width="120" label="企业名"></el-table-column>-->
       <el-table-column prop="" width="120" label="店铺分类"></el-table-column>
@@ -76,8 +76,9 @@
   /deep/ .inner-table td{
     color: #909399 !important;
   }
-  /deep/ .el-table th{
+  /deep/ .inner-table th{
     padding: 7px 0;
+
   }
   .empty-tip{
     text-align: center;

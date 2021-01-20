@@ -3,14 +3,22 @@
     <div class="banner">
       <div class="img-wrap">
         <img :src="bannerUrl" alt="">
-        <div class="login-section">
+
+        <div class="login-section" v-loading="loading">
           <p class="title">登 录</p>
-          <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" width="350px">
+          <el-form :model="ruleForm"
+                   status-icon :rules="rules"
+                   ref="ruleForm"
+                   label-width="100px"
+                   width="350px">
             <el-form-item label="用户名" prop="userName" required>
-              <el-input v-model.number="ruleForm.userName"></el-input>
+              <el-input v-model.trim="ruleForm.userName"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password" required>
-              <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+              <el-input type="password"
+                        v-model.trim="ruleForm.password"
+                        autocomplete="off">
+              </el-input>
             </el-form-item>
           </el-form>
           <div class="footer">
@@ -31,7 +39,7 @@
             </div>
             <div class="mid">啦啦啦啦啦啦啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</div>
             <div class="bot">
-              <el-button size="mini" round>了解更多</el-button>
+              <el-button size="mini" round @click="goAnchor('#anchor1')">了解更多</el-button>
             </div>
           </div>
         </el-col>
@@ -43,7 +51,7 @@
             </div>
             <div class="mid"></div>
             <div class="bot">
-              <el-button size="mini" round>了解更多</el-button>
+              <el-button size="mini" round @click="goAnchor('#anchor2')">了解更多</el-button>
             </div>
           </div>
         </el-col>
@@ -55,14 +63,14 @@
             </div>
             <div class="mid"></div>
             <div class="bot">
-              <el-button size="mini" round>了解更多</el-button>
+              <el-button size="mini" round @click="goAnchor('#anchor3')">了解更多</el-button>
             </div>
           </div>
         </el-col>
       </el-row>
     </div>
     <div class="introduce">
-      <div class="introduce-item1">
+      <div class="introduce-item1" id="anchor1">
         <div class="introduce-content">
           <p class="title"> <span class="text-yellow">“</span>餐饮趋势分析<span class="text-yellow">”</span>是什么 </p>
           <el-row style="padding-top: 40px;">
@@ -92,7 +100,7 @@
           </el-row>
         </div>
       </div>
-      <div class="introduce-item2">
+      <div class="introduce-item2" id="anchor2">
         <div class="introduce-content">
           <p class="title"> <span class="text-yellow">“</span>合作优势<span class="text-yellow">”</span></p>
           <div class="text-wrap" style="">
@@ -159,7 +167,7 @@
 
         </div>
       </div>
-      <div class="introduce-item3">
+      <div class="introduce-item3" id="anchor3">
         <div class="introduce-content">
           <p class="title"> <span class="text-yellow">“</span>接入流程<span class="text-yellow">”</span></p>
           <div class="text-wrap">
@@ -178,6 +186,7 @@
 </template>
 
 <script>
+import { Message } from 'element-ui';
 export default {
   name: 'index',
   data() {
@@ -218,19 +227,34 @@ export default {
         password: [
           { validator: validatePass, trigger: 'blur' }
         ]
-      }
+      },
+      loading: false
     };
   },
   methods: {
     login (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!');
+          this.loading = true
+          this.$axios.post('/user/login', this.ruleForm)
+            .then((res) => {
+              if (res.code == 0) {
+                this.loading = false
+                Message.success("登录成功");
+                sessionStorage.setItem('userInfo', JSON.stringify(res.data || {}))
+                setTimeout(() => {
+                  this.$router.push("/shop")
+                })
+              }
+            })
         } else {
           console.log('error submit!!');
           return false;
         }
       });
+    },
+    goAnchor(selector) {
+      document.querySelector(selector).scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
     }
   }
 };

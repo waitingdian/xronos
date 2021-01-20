@@ -1,17 +1,18 @@
 <template>
   <div class="overflow-hidden">
-    <el-menu class="el-menu-nav clearfix" mode="horizontal">
-      <el-menu-item index="1" class="logo pull-left">
+    <el-menu class="el-menu-nav clearfix" mode="horizontal" router>
+      <el-menu-item index="/" class="logo pull-left">
         <img :src="logoUrl" alt="">
       </el-menu-item>
       <el-submenu index="2" style="float: right;">
         <template slot="title">我的工作台</template>
-        <el-menu-item index="2-1" class="logout">退出</el-menu-item>
+        <el-menu-item index="2-1" class="logout" @click="logout">退出</el-menu-item>
       </el-submenu>
     </el-menu>
   </div>
 </template>
 <script>
+  import { Message } from 'element-ui';
   export default {
     data() {
       return {
@@ -19,11 +20,26 @@
       };
     },
     methods: {
+      logout () {
+        this.$axios.post('/user/logout', this.ruleForm)
+          .then((res) => {
+            if (res.code == 0) {
+              Message.success("退出成功")
+              sessionStorage.clear()
+              setTimeout(() => {
+                this.$router.push("/")
+              }, 300)
+            }
+          })
+      }
     }
   }
 </script>
 
-<style>
+<style scoped>
+  /deep/ .el-menu.el-menu--horizontal{
+    border: none;
+  }
   .el-menu-nav{
     height: 58px;
   }
